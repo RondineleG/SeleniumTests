@@ -1,0 +1,52 @@
+name: .NET Selenium tests
+
+on:
+  push:
+    branches: [ "feature-dev" ]
+
+jobs:
+  run-tests:
+    strategy:
+      matrix:
+        configuration: [Release]
+
+    runs-on: ubuntu-latest
+    
+    services:
+      selenium:
+        image: selenium/standalone-chrome:latest
+        ports:
+          - 9999:4444
+        options: --shm-size=2g
+
+    env:
+      Test_Project_Path: C2GSeleniumTeste.csproj
+      SELENIUM_URL: http://localhost:9999/wd/hub
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore ${{ env.Test_Project_Path }}
+
+    - name: Build project
+      run: dotnet build ${{ env.Test_Project_Path }} --configuration Release
+
+    - name: Run tests
+      run: dotnet test ${{ env.Test_Project_Path }} --configuration Release --logger "trx" --results-directory "test-results"
+
+    - name: Upload test results
+      if: failure()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results
+        path: 'test-results/*.trx'
+        if-no-files-found: warn

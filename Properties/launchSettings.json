@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "C2GSeleniumTeste": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}
