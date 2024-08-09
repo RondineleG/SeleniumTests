@@ -61,9 +61,10 @@ namespace C2GSeleniumTeste
         public void LoginSuccessDev(IWebDriver driver)
         {
             driver.Navigate().GoToUrl("https://auth-dev.cloud2gether.com/auth/login/password");
-
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
-
+            Console.WriteLine(driver.PageSource);
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(120));
+            wait.Until(ExpectedConditions.UrlContains("auth/login/password"));
+            
             IWebElement userNameField = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("userName")));
             userNameField.Clear();
             userNameField.SendKeys("davi262016+100@gmail.com");
