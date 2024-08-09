@@ -65,15 +65,17 @@ namespace C2GSeleniumTeste
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(120));
             wait.Until(ExpectedConditions.UrlContains("auth/login/password"));
             
-            IWebElement userNameField = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("userName")));
+            IWebElement userNameField = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id='userName']")));
+            Console.WriteLine(userNameField);
             userNameField.Clear();
             userNameField.SendKeys("davi262016+100@gmail.com");
 
-            IWebElement passwordField = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("password")));
+            IWebElement passwordField = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id='password']")));
+            Console.WriteLine(passwordField);
             passwordField.Clear();
             passwordField.SendKeys("testCloud2Gether");
 
-            IWebElement loginButton = wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("buttonForm")));
+            IWebElement loginButton = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//*[@id='buttonForm']")));
             loginButton.Click();
 
             wait.Until(ExpectedConditions.UrlToBe("https://expert-dev.cloud2gether.com/"));
