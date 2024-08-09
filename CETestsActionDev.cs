@@ -100,7 +100,7 @@ namespace C2GSeleniumTeste
                     Directory.CreateDirectory(wwwRootPath);
                 }
 
-                screenshot.SaveAsFile(screenshotPath, ScreenshotImageFormat.Png);
+                screenshot.SaveAsFile(screenshotPath);
                 Console.WriteLine($"Screenshot : {screenshotPath}");
 
                 throw;
