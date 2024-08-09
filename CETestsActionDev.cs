@@ -30,31 +30,6 @@ namespace C2GSeleniumTeste
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
         }
 
-        public void LoginSuccessDev(IWebDriver driver)
-{
-    driver.Navigate().GoToUrl("https://auth-dev.cloud2gether.com/auth/login/password");
-
-    WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
-
-    IWebElement userNameField = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("userName")));
-    userNameField.Clear();
-    userNameField.SendKeys("davi262016+100@gmail.com");
-
-    IWebElement passwordField = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("password")));
-    passwordField.Clear();
-    passwordField.SendKeys("testCloud2Gether");
-
-    IWebElement loginButton = wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("buttonForm")));
-    loginButton.Click();
-
-    wait.Until(ExpectedConditions.UrlToBe("https://expert-dev.cloud2gether.com/"));
-
-    string currentUrl = driver.Url;
-    string expectedUrl = "https://expert-dev.cloud2gether.com/";
-
-    Assert.That(currentUrl, Is.EqualTo(expectedUrl));
-}
-        
 
         [Test]
         public void SuccessCloudExpertProfile()
@@ -84,29 +59,30 @@ namespace C2GSeleniumTeste
         }
         //Tentar com Circle CI agora
         public void LoginSuccessDev(IWebDriver driver)
-{
-    driver.Navigate().GoToUrl("https://auth-dev.cloud2gether.com/auth/login/password");
+        {
+            driver.Navigate().GoToUrl("https://auth-dev.cloud2gether.com/auth/login/password");
 
-    WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
 
-    IWebElement userNameField = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("userName")));
-    userNameField.Clear();
-    userNameField.SendKeys("davi262016+100@gmail.com");
+            IWebElement userNameField = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("userName")));
+            userNameField.Clear();
+            userNameField.SendKeys("davi262016+100@gmail.com");
 
-    IWebElement passwordField = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("password")));
-    passwordField.Clear();
-    passwordField.SendKeys("testCloud2Gether");
+            IWebElement passwordField = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("password")));
+            passwordField.Clear();
+            passwordField.SendKeys("testCloud2Gether");
 
-    IWebElement loginButton = wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("buttonForm")));
-    loginButton.Click();
+            IWebElement loginButton = wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("buttonForm")));
+            loginButton.Click();
 
-    wait.Until(ExpectedConditions.UrlToBe("https://expert-dev.cloud2gether.com/"));
+            wait.Until(ExpectedConditions.UrlToBe("https://expert-dev.cloud2gether.com/"));
 
-    string currentUrl = driver.Url;
-    string expectedUrl = "https://expert-dev.cloud2gether.com/";
+            string currentUrl = driver.Url;
+            string expectedUrl = "https://expert-dev.cloud2gether.com/";
 
-    Assert.That(currentUrl, Is.EqualTo(expectedUrl));
-}
+            Assert.That(currentUrl, Is.EqualTo(expectedUrl));
+        }
+
 
         public void AddPublicNameAndAboutField(IWebDriver driver)
         {
