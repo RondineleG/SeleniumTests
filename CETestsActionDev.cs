@@ -60,30 +60,51 @@ namespace C2GSeleniumTeste
         //Tentar com Circle CI agora
         public void LoginSuccessDev(IWebDriver driver)
         {
-            driver.Navigate().GoToUrl("https://auth-dev.cloud2gether.com/auth/login/password");
-            Console.WriteLine(driver.PageSource);
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(120));
-            wait.Until(ExpectedConditions.UrlContains("auth/login/password"));
-            
-            IWebElement userNameField = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id='userName']")));
-            Console.WriteLine(userNameField);
-            userNameField.Clear();
-            userNameField.SendKeys("davi262016+100@gmail.com");
+            try
+            {
+                driver.Navigate().GoToUrl("https://auth-dev.cloud2gether.com/auth/login/password");
 
-            IWebElement passwordField = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id='password']")));
-            Console.WriteLine(passwordField);
-            passwordField.Clear();
-            passwordField.SendKeys("testCloud2Gether");
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(120));
+                wait.Until(driver => ((IJavaScriptExecutor)driver).ExecuteScript("return document.readyState").Equals("complete"));
 
-            IWebElement loginButton = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//*[@id='buttonForm']")));
-            loginButton.Click();
+                wait.Until(ExpectedConditions.UrlContains("auth/login/password"));
 
-            wait.Until(ExpectedConditions.UrlToBe("https://expert-dev.cloud2gether.com/"));
+                IWebElement userNameField = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id='userName']")));
+                userNameField.Clear();
+                userNameField.SendKeys("davi262016+100@gmail.com");
 
-            string currentUrl = driver.Url;
-            string expectedUrl = "https://expert-dev.cloud2gether.com/";
+                IWebElement passwordField = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id='password']")));
+                passwordField.Clear();
+                passwordField.SendKeys("testCloud2Gether");
 
-            Assert.That(currentUrl, Is.EqualTo(expectedUrl));
+                IWebElement loginButton = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//*[@id='buttonForm']")));
+                loginButton.Click();
+
+                wait.Until(ExpectedConditions.UrlToBe("https://expert-dev.cloud2gether.com/"));
+
+                string currentUrl = driver.Url;
+                string expectedUrl = "https://expert-dev.cloud2gether.com/";
+
+                Assert.That(currentUrl, Is.EqualTo(expectedUrl));
+            }
+            catch (Exception ex)
+            {
+                Screenshot screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+
+                string wwwRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "screenshots");
+                string screenshotName = $"login_failure_{DateTime.Now:yyyyMMdd_HHmmss}.png";
+                string screenshotPath = Path.Combine(wwwRootPath, screenshotName);
+
+                if (!Directory.Exists(wwwRootPath))
+                {
+                    Directory.CreateDirectory(wwwRootPath);
+                }
+
+                screenshot.SaveAsFile(screenshotPath, ScreenshotImageFormat.Png);
+                Console.WriteLine($"Screenshot : {screenshotPath}");
+
+                throw;
+            }
         }
 
 
