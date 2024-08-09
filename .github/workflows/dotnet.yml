@@ -1,4 +1,4 @@
-name: .NET Selenium tests
+name: .NET Selenium tests2
 
 on:
   push:
