@@ -21,8 +21,6 @@ jobs:
 
     env:
       Test_Project_Path: C2GSeleniumTeste.csproj
-      SELENIUM_URL: https://auth-dev.cloud2gether.com/auth/login/password
-
     steps:
     - name: Checkout
       uses: actions/checkout@v4
