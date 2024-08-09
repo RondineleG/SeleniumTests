@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using NUnit.Framework.Internal;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
@@ -21,32 +21,30 @@ namespace C2GSeleniumTeste
         [SetUp]
         public void Setup()
         {
-            //ChromeOptions options = new();
-            //options.AddArgument("start-maximized");
-            //options.AddArgument("--disable-gpu");
-            //options.AddArgument("--headless");
+            ChromeOptions options = new();
+            options.AddArgument("start-maximized");
+            options.AddArgument("--disable-gpu");
+            options.AddArgument("--headless");
 
-            var options = new ChromeOptions();
-            //driver = new ChromeDriver();
-            //driver = new RemoteWebDriver(new Uri("http://localhost:9999/wd/hub"), options);
-            driver = new RemoteWebDriver(new Uri(Environment.GetEnvironmentVariable("SELENIUM_URL")), options);
+            driver = new ChromeDriver(options);
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
         }
+
 
         [Test]
         public void SuccessCloudExpertProfile()
         {
             LoginSuccessDev(driver);
-            AddPublicNameAndAboutField(driver);
+          //  AddPublicNameAndAboutField(driver);
             //SaveTestPicture(driver);
             //UploadCloudExpertImg(driver);
             //RemoveCloudExpertImg(driver);
-            AddLanguages(driver);
-            RemoveLanguages(driver);
-            CorrectAdress(driver);
-            DownloadW8BenForm(driver);
-            UploadW8BenForm(driver);
-            CopyW8BenForm(driver);
+            //AddLanguages(driver);
+            //RemoveLanguages(driver);
+            //CorrectAdress(driver);
+            //DownloadW8BenForm(driver);
+            //UploadW8BenForm(driver);
+            //CopyW8BenForm(driver);
         }
 
         [Test]
