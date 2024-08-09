@@ -1,8 +1,8 @@
-name: .NET Selenium tests2
+name: .NET Selenium tests
 
 on:
   push:
-    branches: [ "feature-dev" ]
+    branches: [ "main" ]
 
 jobs:
   run-tests:
