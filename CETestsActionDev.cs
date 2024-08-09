@@ -59,30 +59,29 @@ namespace C2GSeleniumTeste
         }
         //Tentar com Circle CI agora
         public void LoginSuccessDev(IWebDriver driver)
-        {
-            driver.Navigate().GoToUrl("https://auth-dev.cloud2gether.com/auth/login/password");
+{
+    driver.Navigate().GoToUrl("https://auth-dev.cloud2gether.com/auth/login/password");
 
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30)); // Aumenta o tempo de espera
-            wait.Until(ExpectedConditions.UrlToBe("https://auth-dev.cloud2gether.com/auth/login/password"));
+    WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30));
 
-            IWebElement userNameField = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id='userName']")));
+    IWebElement userNameField = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("userName")));
+    userNameField.Clear();
+    userNameField.SendKeys("davi262016+100@gmail.com");
 
-            string emailDev = "davi262016+100@gmail.com";
-            userNameField.SendKeys(emailDev);
+    IWebElement passwordField = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("password")));
+    passwordField.Clear();
+    passwordField.SendKeys("testCloud2Gether");
 
-            IWebElement passwordField = driver.FindElement(By.XPath("//*[@id='password']"));
-            passwordField.SendKeys("testCloud2Gether");
+    IWebElement loginButton = wait.Until(ExpectedConditions.ElementToBeClickable(By.Id("buttonForm")));
+    loginButton.Click();
 
-            IWebElement loginButton = driver.FindElement(By.XPath("//*[@id='buttonForm']"));
-            loginButton.Click();
+    wait.Until(ExpectedConditions.UrlToBe("https://expert-dev.cloud2gether.com/"));
 
-            wait.Until(ExpectedConditions.UrlToBe("https://expert-dev.cloud2gether.com/"));
+    string currentUrl = driver.Url;
+    string expectedUrl = "https://expert-dev.cloud2gether.com/";
 
-            string currentUrl = driver.Url;
-            string expectedUrl = "https://expert-dev.cloud2gether.com/";
-
-            Assert.That(currentUrl, Is.EqualTo(expectedUrl));
-        }
+    Assert.That(currentUrl, Is.EqualTo(expectedUrl));
+}
 
         public void AddPublicNameAndAboutField(IWebDriver driver)
         {
