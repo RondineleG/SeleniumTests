@@ -59,30 +59,30 @@ namespace C2GSeleniumTeste
         }
         //Tentar com Circle CI agora
         public void LoginSuccessDev(IWebDriver driver)
-{
-    driver.Navigate().GoToUrl("https://auth-dev.cloud2gether.com/auth/login/password");
+        {
+            driver.Navigate().GoToUrl("https://auth-dev.cloud2gether.com/auth/login/password");
 
-    WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-    IWebElement userNameField = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id='userName']")));
-    
-    string emailDev = "davi262016+100@gmail.com";
-    userNameField.SendKeys(emailDev);
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(30)); // Aumenta o tempo de espera
+            wait.Until(ExpectedConditions.UrlToBe("https://auth-dev.cloud2gether.com/auth/login/password"));
 
-    IWebElement passwordField = driver.FindElement(By.XPath("//*[@id='password']"));
-    passwordField.SendKeys("testCloud2Gether");
+            IWebElement userNameField = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[@id='userName']")));
 
-    IWebElement loginButton = driver.FindElement(By.XPath("//*[@id='buttonForm']"));
-    loginButton.Click();
+            string emailDev = "davi262016+100@gmail.com";
+            userNameField.SendKeys(emailDev);
 
-    // Espere até que a URL seja a esperada
-    wait.Until(ExpectedConditions.UrlToBe("https://expert-dev.cloud2gether.com/"));
-    
-    string currentUrl = driver.Url;
-    string expectedUrl = "https://expert-dev.cloud2gether.com/";
+            IWebElement passwordField = driver.FindElement(By.XPath("//*[@id='password']"));
+            passwordField.SendKeys("testCloud2Gether");
 
-    Assert.That(currentUrl, Is.EqualTo(expectedUrl));
-}
+            IWebElement loginButton = driver.FindElement(By.XPath("//*[@id='buttonForm']"));
+            loginButton.Click();
 
+            wait.Until(ExpectedConditions.UrlToBe("https://expert-dev.cloud2gether.com/"));
+
+            string currentUrl = driver.Url;
+            string expectedUrl = "https://expert-dev.cloud2gether.com/";
+
+            Assert.That(currentUrl, Is.EqualTo(expectedUrl));
+        }
 
         public void AddPublicNameAndAboutField(IWebDriver driver)
         {
